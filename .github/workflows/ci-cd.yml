@@ -21,5 +21,7 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Server Deps
+        run: npm install
       - name: Server Start
         run: npm start
