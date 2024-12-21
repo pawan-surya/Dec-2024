@@ -3,10 +3,10 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # Jab main branch par push hoga
+      - master  # Jab master branch par push hoga
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   build:
@@ -55,4 +55,4 @@ jobs:
           
           # Deploy to Heroku
           heroku git:remote -a ${{ secrets.HEROKU_APP_NAME }}
-          git push heroku main
+          git push heroku master
