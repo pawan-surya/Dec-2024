@@ -1,6 +1,7 @@
-const express = require('express');  // Import the express module
-const app = express();  // Create an instance of the express app
+const express = require('express');
+const app = express();
 
-app.listen(3000, '0.0.0.0', () => {
-  console.log('Server is running on port 3000');
-});
+// Your routes and middleware go here
+app.get('/', (req, res) => res.status(200).send('OK'));
+
+module.exports = app;  // Export the app instance for testing
