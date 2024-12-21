@@ -3,56 +3,24 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # Jab master branch par push hoga
-  pull_request:
-    branches:
       - master
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      # Step 1: Checkout code
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # Step 2: Set up Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      # Step 3: Install dependencies
-      - name: Install dependencies
-        run: npm install
-
-      # Step 4: Run tests
-      - name: Run tests
-        run: npm test
-
-      # Step 5: Build application (if needed)
-      - name: Build
-        run: npm run build
-
   deploy:
-    needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Deploy to Heroku
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          # Install Heroku CLI
-          curl https://cli-assets.heroku.com/install.sh | sh
-          
-          # Login to Heroku
-          echo $HEROKU_API_KEY | heroku auth:token | heroku login --with-token
-          
-          # Deploy to Heroku
-          heroku git:remote -a ${{ secrets.HEROKU_APP_NAME }}
-          git push heroku master
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /path/to/your/app
+            git pull origin master
+            npm install
+            pm2 restart all
