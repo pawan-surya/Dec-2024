@@ -20,7 +20,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd /path/to/your/app
+            cd /Dec-2024
             git pull origin master
             npm install
             pm2 restart all
