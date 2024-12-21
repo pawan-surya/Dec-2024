@@ -23,5 +23,3 @@ jobs:
 
       - name: Server Deps
         run: npm install
-      - name: Server Start
-        run: npm start
