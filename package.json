@@ -4,7 +4,8 @@
   "description": "This is the test to setup CI CD",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
