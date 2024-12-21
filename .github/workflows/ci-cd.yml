@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Surya Runner
 
 on:
   push:
@@ -6,15 +6,14 @@ on:
       - master
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
+  surya-runner:
+  name: Lint code base
+  runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-
-      - name: Run CI-CD
-      - uses: github/ci-cd@v3
+     
+      - name: Run Super-Linter
+        uses: github/super-linter@v4
         env: 
-          DEFAULT_BRANCH: master
-          TOKEN: ${{ secrets.TOKEN }}
+           DEFAULT_BRANCH: master 
